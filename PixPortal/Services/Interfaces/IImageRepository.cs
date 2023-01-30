@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PixPortal.Services.Interfaces
 {
-    interface IImageRepository
+    public interface IImageRepository
     {
         Task<Image> GetImageById(int imageId);
         Task<IEnumerable<Image>> GetImagesByUserId(int userId);
