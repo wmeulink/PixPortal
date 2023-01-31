@@ -35,6 +35,7 @@ namespace PixPortal
             services.AddIdentityCore<IdentityUser>()
                 .AddEntityFrameworkStores<ImageDbContext>();
             services.AddScoped<IImageRepository, ImageRepository>();
+            services.AddScoped<IImageService, ImageService>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

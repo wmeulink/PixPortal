@@ -15,9 +15,11 @@ namespace PixPortal.Services
             _imageDbContext = imageDbContext;
         }
 
-        public Task<Image> AddImage(Image image)
+        public async Task<Image> AddImage(Image image)
         {
-            throw new NotImplementedException();
+            _imageDbContext.Add(image);
+            await _imageDbContext.SaveChangesAsync();
+            return image;
         }
 
         public Task DeleteImage(int imageId)

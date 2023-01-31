@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PixPortal.DTOs.Requests;
 using PixPortal.Models;
 using PixPortal.Services.Interfaces;
 using System;
@@ -12,31 +13,32 @@ namespace PixPortal.Controllers
     [ApiController]
     public class ImageController : ControllerBase
     {
-        private readonly IImageRepository _imageRepository;
+        private readonly IImageService _imageService;
 
-        public ImageController(IImageRepository imageRepository)
+        public ImageController(IImageService imageService)
         {
-            _imageRepository = imageRepository;
+            _imageService = imageService;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<Image>> GetImageById(int id)
-        {
-            var image = await _imageRepository.GetImageById(id);
+        //[HttpGet]
+        //public async Task<ActionResult<Image>> GetImageById(int id)
+        //{
+        //    var image = await _imageService.GetImageById(id);
 
-            if (image == null)
-            {
-                return NotFound();
-            }
+        //    if (image == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return image;
-        }
+        //    return image;
+        //}
 
         [HttpPost]
-        public async Task<ActionResult<Image>> PostImage(Image image)
+        public async Task<ActionResult<Image>> UploadImage([FromForm] ImageUploadRequest imageUploadRequest)
         {
-            var newImage = await _imageRepository.AddImage(image);
-            return CreatedAtAction(nameof(GetImageById), new { id = newImage.Id }, newImage);
+            var response = await _imageService.UploadImage(imageUploadRequest);
+            //return CreatedAtAction(nameof(GetImageById), new { id = response.Id }, response);
+            return Ok(response);
         }
     }
 }
