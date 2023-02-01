@@ -1,4 +1,5 @@
-﻿using PixPortal.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using PixPortal.Models;
 using PixPortal.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,9 @@ namespace PixPortal.Services
             throw new NotImplementedException();
         }
 
-        public Task<Image> GetImageById(int imageId)
+        public async Task<Image> GetImage(int userId, string fileName)
         {
-            throw new NotImplementedException();
+            return await _imageDbContext.Images.FirstOrDefaultAsync(i => i.UserId == userId && i.Name == fileName);
         }
 
         public Task<IEnumerable<Image>> GetImagesByUserId(int userId)

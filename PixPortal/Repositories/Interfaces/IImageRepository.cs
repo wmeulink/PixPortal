@@ -8,7 +8,7 @@ namespace PixPortal.Services.Interfaces
 {
     public interface IImageRepository
     {
-        Task<Image> GetImageById(int imageId);
+        Task<Image> GetImage(int userId, string fileName);
         Task<IEnumerable<Image>> GetImagesByUserId(int userId);
         Task<Image> GetSharedImagesByUserId(int userId);
         Task<Image> AddImage(Image image);

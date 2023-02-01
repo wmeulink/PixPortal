@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PixPortal.DTOs.Responses
 {
-    public class ImageUploadResponse
+    public class ImageUploadResponseDTO
     {
         public int ImageId { get; set; }
     }

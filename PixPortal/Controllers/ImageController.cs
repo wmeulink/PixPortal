@@ -4,6 +4,7 @@ using PixPortal.Models;
 using PixPortal.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,18 +21,20 @@ namespace PixPortal.Controllers
             _imageService = imageService;
         }
 
-        //[HttpGet]
-        //public async Task<ActionResult<Image>> GetImageById(int id)
-        //{
-        //    var image = await _imageService.GetImageById(id);
-
-        //    if (image == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return image;
-        //}
+        [HttpGet("{userId}/{fileName}")]
+        public async Task<IActionResult> GetImageById(int userId, string fileName)
+        {
+            try
+            {
+                var image = await _imageService.GetImage(userId, fileName);
+                return File(image.Content, image.ContentType, image.Name);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            
+        }
 
         [HttpPost]
         public async Task<ActionResult<Image>> UploadImage([FromForm] ImageUploadRequest imageUploadRequest)
