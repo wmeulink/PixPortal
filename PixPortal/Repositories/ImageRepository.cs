@@ -28,17 +28,17 @@ namespace PixPortal.Services
             throw new NotImplementedException();
         }
 
-        public async Task<Image> GetImage(int userId, string fileName)
+        public async Task<Image> GetImage(string userId, string fileName)
         {
             return await _imageDbContext.Images.FirstOrDefaultAsync(i => i.UserId == userId && i.Name == fileName);
         }
 
-        public Task<IEnumerable<Image>> GetImagesByUserId(int userId)
+        public Task<IEnumerable<Image>> GetImagesByUserId(string userId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Image> GetSharedImagesByUserId(int userId)
+        public Task<Image> GetSharedImagesByUserId(string userId)
         {
             throw new NotImplementedException();
         }

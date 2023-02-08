@@ -26,7 +26,7 @@ namespace PixPortal.Services
                 UserId = imageUploadRequest.UserId,
                 Name = imageUploadRequest.Image.Name,
                 Content = await GetByteArrayFromFile(imageUploadRequest.Image),
-
+                ContentType = imageUploadRequest.Image.ContentType,
             };
 
             await _imageRespository.AddImage(image);
@@ -63,7 +63,7 @@ namespace PixPortal.Services
             }
         }
 
-        public async Task<ImageResponseDTO> GetImage(int userId, string fileName)
+        public async Task<ImageResponseDTO> GetImage(string userId, string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
             {
@@ -83,6 +83,23 @@ namespace PixPortal.Services
                 ContentType = GetContentType(fileName),
                 Name = image.Name,
             };
+        }
+
+        public async Task<List<ImageResponseDTO>> GetImagesByUserId(string userId)
+        {
+            var images = await _imageRespository.GetImagesByUserId(userId);
+            List<ImageResponseDTO> imagesDTO = new List<ImageResponseDTO>();
+            foreach (var image in images)
+            {
+                var imageDTO = new ImageResponseDTO
+                {
+                    Content = image.Content,
+                    Name = image.Name,
+                    ContentType = image.ContentType
+                };
+                imagesDTO.Add(imageDTO);
+            }
+            return imagesDTO;
         }
     }
 }

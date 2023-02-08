@@ -10,6 +10,7 @@ namespace PixPortal.Services.Interfaces
     public interface IImageService
     {
         Task<ImageUploadResponseDTO> UploadImage(ImageUploadRequest imageUploadRequest);
-        Task<ImageResponseDTO> GetImage(int userId, string fileName);
+        Task<ImageResponseDTO> GetImage(string userId, string fileName);
+        Task<List<ImageResponseDTO>> GetImagesByUserId(string userId);
     }
 }

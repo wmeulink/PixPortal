@@ -22,18 +22,17 @@ namespace PixPortal.Controllers
         }
 
         [HttpGet("{userId}/{fileName}")]
-        public async Task<IActionResult> GetImageById(int userId, string fileName)
+        public async Task<IActionResult> GetImageById(string userId, string fileName)
         {
-            try
-            {
                 var image = await _imageService.GetImage(userId, fileName);
-                return File(image.Content, image.ContentType, image.Name);
-            }
-            catch (ArgumentException ex)
-            {
-                return NotFound(ex.Message);
-            }
-            
+                return File(image.Content, image.ContentType);
+        }
+
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetImagesByUserId(string userId)
+        {
+            var images = await _imageService.GetImagesByUserId(userId);
+            return Ok(images);
         }
 
         [HttpPost]
