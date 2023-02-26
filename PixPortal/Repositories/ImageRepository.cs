@@ -33,9 +33,9 @@ namespace PixPortal.Services
             return await _imageDbContext.Images.FirstOrDefaultAsync(i => i.UserId == userId && i.Name == fileName);
         }
 
-        public Task<IEnumerable<Image>> GetImagesByUserId(string userId)
+        public async Task<IEnumerable<Image>> GetImagesByUserId(string userId)
         {
-            throw new NotImplementedException();
+            return await _imageDbContext.Images.Where(i => i.UserId == userId).ToListAsync();
         }
 
         public Task<Image> GetSharedImagesByUserId(string userId)

@@ -24,8 +24,12 @@ namespace PixPortal.Controllers
         [HttpGet("{userId}/{fileName}")]
         public async Task<IActionResult> GetImageById(string userId, string fileName)
         {
-                var image = await _imageService.GetImage(userId, fileName);
-                return File(image.Content, image.ContentType);
+            var image = await _imageService.GetImage(userId, fileName);
+            var result = new FileContentResult(image.Content, image.ContentType)
+            {
+                FileDownloadName = image.Name + "." + image.ContentType,
+            };
+            return result; 
         }
 
         [HttpGet("{userId}")]

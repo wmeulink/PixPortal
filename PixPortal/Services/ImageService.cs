@@ -80,7 +80,7 @@ namespace PixPortal.Services
             return new ImageResponseDTO
             {
                 Content = image.Content,
-                ContentType = GetContentType(fileName),
+                ContentType = image.ContentType,
                 Name = image.Name,
             };
         }
