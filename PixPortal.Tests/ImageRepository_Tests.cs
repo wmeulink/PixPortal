@@ -1,9 +1,11 @@
 using AutoFixture;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using PixPortal.Models;
 using PixPortal.Services;
+using System;
 using System.Threading.Tasks;
 
 namespace PixPortal.Tests
@@ -12,12 +14,17 @@ namespace PixPortal.Tests
     {
         private ImageDbContext _imageDbContext;
         private Fixture _fixture = new Fixture();
+
+        private ImageDbContext _myImageDbContext;
+        ImageDbContext ImageDbContext { get; set; }
+
         [SetUp]
         public void Setup()
         {
             DbContextOptions<ImageDbContext> dbContextOptions = new
                 DbContextOptionsBuilder<ImageDbContext>()
-                .UseInMemoryDatabase("ImageDbContext").Options;
+                .UseInMemoryDatabase("ImageDbContext")
+                .Options;
 
             _imageDbContext = new ImageDbContext(dbContextOptions);
         }
@@ -38,5 +45,6 @@ namespace PixPortal.Tests
 
             Assert.That(actual, Is.EqualTo(expected));
         }
+
     }
 }
